@@ -5,7 +5,7 @@
 
 Minimal example of the [Geometrize Haxe library](https://github.com/Tw1ddle/geometrize-haxe/), a Haxe library for converting images into shapes.
 
-## Build
+## Building
 
 Install the dependencies:
 
@@ -28,8 +28,10 @@ This demo works on the C++ target. Move the built binary to the [sample images](
 
 ```
 # Create an image made of 400 circles
-Main.exe -i sliced_fruit.png -o sliced_fruit_out.png -t circle -s 400
+./Main.exe -i sliced_fruit.png -o sliced_fruit_out.png -t circle -s 400
 ```
+
+[![Geometrize Fruit Example](https://github.com/Tw1ddle/geometrize-haxe-example/blob/master/screenshots/sliced_fruit.png?raw=true "Geometrize Fruit Example")](https://www.geometrize.co.uk)
 
 ## Options
 
