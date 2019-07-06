@@ -8,10 +8,12 @@ import format.png.Writer;
 import geometrize.Model.ShapeResult;
 import geometrize.Util;
 import geometrize.bitmap.Bitmap;
+import geometrize.bitmap.Rgba;
 import geometrize.exporter.ShapeJsonExporter;
 import geometrize.exporter.SvgExporter;
 import geometrize.runner.ImageRunner;
 import geometrize.runner.ImageRunnerOptions;
+import geometrize.shape.Rectangle;
 import geometrize.shape.ShapeType;
 import haxe.io.Path;
 import sys.io.File;
@@ -21,8 +23,8 @@ import sys.io.FileOutput;
 using StringTools;
 
 /**
-   Minimal native (C++ target) demo using Geometrize Haxe to recreate images with geometric primitives
-   Pass in command line options to transform an image into shapes, for example:
+   Minimal native command-line demo of Geometrize Haxe
+   Specify command line options for transforming an image into shapes, for example:
 
    ./Main.exe -i monarch_butterfly.png -o monarch_butterfly_out.png -t rotated_rectangle -s 500
 
@@ -35,7 +37,7 @@ class Main extends mcli.CommandLine
 	**/
 	public var i:String = null;
 	/**
-	   The filepath to save the output image, JSON data or SVG
+	   The filepath to save the output PNG image, JSON data or SVG
 	**/
 	public var o:String = null;
 	/**
@@ -69,7 +71,7 @@ class Main extends mcli.CommandLine
 			return;
 		}
 		
-		// Populate the image runner options
+		// Set up the image runner options
 		var imageRunnerOptions:ImageRunnerOptions = {
 			shapeTypes: [ stringToShapeType(t) ],
 			alpha: a,
@@ -77,9 +79,24 @@ class Main extends mcli.CommandLine
 			shapeMutationsPerStep: m
 		};
 		
-		// Create image runner and add shapes one by one
-		var runner:ImageRunner = new ImageRunner(sourceBitmap, Util.getAverageImageColor(sourceBitmap));
+		Sys.println("Will use image runner options: " + Std.string(imageRunnerOptions));
+		
+		// Create image runner
+		var backgroundColor:Rgba = Util.getAverageImageColor(sourceBitmap);
+		var runner:ImageRunner = new ImageRunner(sourceBitmap, backgroundColor);
+		
 		var shapeData:Array<ShapeResult> = [];
+		
+		// Add the initial background rectangle for the SVG/JSON data (average image colour)
+		var targetImage = runner.getImageData();
+		var backgroundRect = new Rectangle(targetImage.width, targetImage.height);
+		backgroundRect.x1 = 0;
+		backgroundRect.y1 = 0;
+		backgroundRect.x2 = targetImage.width - 1;
+		backgroundRect.y2 = targetImage.height - 1;
+		shapeData.push({score:0, color:backgroundColor, shape:backgroundRect });
+		
+		// Add shapes to the output image one by one
 		for (count in 0...s) {
 			var results = runner.step(imageRunnerOptions);
 			for (result in results) {
@@ -121,7 +138,7 @@ class Main extends mcli.CommandLine
 		Sys.println(this.toString());
 	}
 	
-	// Reads a PNG image from disk and returns an RGBA8888 bitmap
+	// Reads a PNG image from disk and returns an RGBA8888 Bitmap that the Geometrize library can work with
 	private static function readPNGImage(filePath:Path):Bitmap {
 		try {
 			var handle:FileInput = sys.io.File.read(filePath.toString(), true);
