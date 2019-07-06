@@ -1,4 +1,7 @@
+# Library for image loading/saving
 -lib format
+
+# Library for assertions
 -lib sure
 
 # Uncomment to use the geometrize-haxe haxelib
