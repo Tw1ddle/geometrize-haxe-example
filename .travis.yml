@@ -26,6 +26,6 @@ script:
   - cp bin/Main sample_images/Main
   - cd sample_images
   - chmod +x Main
-  - ./Main -i "grapefruit.png" -o "output.png"
-  - ./Main -i "grapefruit.png" -o "output.svg"
-  - ./Main -i "grapefruit.png" -o "output.json"
+  - ./Main -i "grapefruit.png" -o "output.png" -t rectangle -s 100 -c 500 -m 100 -a 170
+  - ./Main -i "grapefruit.png" -o "output.svg" -t triangle -s 300 -c 100 -m 200 -a 255
+  - ./Main -i "grapefruit.png" -o "output.json" -t ellipse -s 200 -c 250 -m 50 -a 128
