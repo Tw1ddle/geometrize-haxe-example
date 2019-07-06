@@ -24,7 +24,7 @@ import sys.io.FileOutput;
  */
 class Main
 {
-	// Reads a PNG image from disk
+	// Reads a PNG image from disk and returns an RGBA8888 bitmap
 	private static function readPNGImage(filePath:Path):Bitmap {
 		var handle:FileInput = sys.io.File.read(filePath.toString(), true);
 		var d:Data = new format.png.Reader(handle).read();
@@ -39,7 +39,7 @@ class Main
 		return Bitmap.createFromBytes(hdr.width, hdr.height, rgba);
 	}
 	
-	// Writes a PNG image to disk
+	// Writes an RGBA8888 Bitmap to disk as a PNG image
 	private static function writePNGImage(filePath:Path, bitmap:Bitmap):Void {
 		var output:FileOutput = sys.io.File.write(filePath.toString(), true);
 		new format.png.Writer(output).write(format.png.Tools.build32BGRA(bitmap.width, bitmap.height, PixelFormatHelpers.rgbaToBgra(bitmap.getBytes())));
