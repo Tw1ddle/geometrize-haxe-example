@@ -1,6 +1,9 @@
 # Library for image loading/saving
 -lib format
 
+# Library for command line options
+-lib mcli
+
 # Library for assertions
 -lib sure
 
