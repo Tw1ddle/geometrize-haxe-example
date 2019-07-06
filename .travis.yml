@@ -1,0 +1,19 @@
+sudo: required
+dist: trusty
+
+language: haxe
+
+os:
+  - linux
+
+haxe:
+  - stable
+
+install:
+  - haxelib install hxcpp
+  - haxelib install format
+  - haxelib install sure
+  - haxelib list
+
+script:
+  - haxe GeometrizeHaxeExample.hxml
