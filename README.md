@@ -9,7 +9,7 @@ Minimal example of the [Geometrize Haxe library](https://github.com/Tw1ddle/geom
 
 ## Usage
 
-This demo should work on native targets. Copy the binary to the [sample images](https://github.com/Tw1ddle/geometrize-haxe-example/sample_images) folder and start geometrizing some images. Edit the file "options.txt" in the folder to specify the options the program should use for converting images into shapes.
+This demo should work on native targets. Copy the binary to the [sample images](https://github.com/Tw1ddle/geometrize-haxe-example/tree/master/sample_images) folder and start geometrizing some images. Edit the file "options.txt" in the folder to specify the options the program should use for converting images into shapes.
 
 ## Notes
 * Got an idea or suggestion? Open an issue on GitHub, or send Sam a message on [Twitter](https://twitter.com/Sam_Twidale).
