@@ -12,8 +12,20 @@ haxe:
 install:
   - haxelib install hxcpp
   - haxelib install format
-  - haxelib install sure
+  - haxelib install mcli
+  - haxelib install Sure
   - haxelib list
 
 script:
   - haxe GeometrizeHaxeExample.hxml
+
+  # Check the bin directory, run built executable as a sanity check
+  - cd bin
+  - ls -a
+  - cd ..
+  - cp bin/Main sample_images/Main
+  - cd sample_images
+  - chmod +x Main
+  - ./Main -i "grapefruit.png" -o "output.png"
+  - ./Main -i "grapefruit.png" -o "output.svg"
+  - ./Main -i "grapefruit.png" -o "output.json"
