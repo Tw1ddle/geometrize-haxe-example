@@ -1,7 +1,7 @@
 [![Project logo](https://github.com/Tw1ddle/geometrize-haxe-example/blob/master/screenshots/geometrize_haxe_example_logo.png?raw=true "Geometrize Haxe recreating images as geometric primitives logo")](https://www.geometrize.co.uk/)
 
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/Tw1ddle/geometrize-haxe-example/blob/master/LICENSE)
-[![Build Status](https://img.shields.io/travis/Tw1ddle/geometrize-haxe-example.svg?style=flat-square)](https://travis-ci.org/Tw1ddle/geometrize-haxe-example)
+[![Geometrize Build Status](https://ci.appveyor.com/api/projects/status/github/Tw1ddle/geometrize-haxe-example)](https://ci.appveyor.com/project/Tw1ddle/geometrize-haxe-example)
 
 Minimal example of the [Geometrize Haxe library](https://github.com/Tw1ddle/geometrize-haxe/), a Haxe library for converting images into shapes.
 
@@ -16,7 +16,7 @@ haxelib install mcli
 haxelib install Sure
 ```
 
-Either open the project FlashDevelop and build for Windows, or run Haxe from the command line:
+Either open the project folder in VSCode, or run Haxe from the command line:
 
 ```
 haxe GeometrizeHaxeExample.hxml

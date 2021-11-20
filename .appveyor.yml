@@ -1,0 +1,46 @@
+branches:
+  only:
+    - master
+
+image:
+  - Ubuntu2004
+
+environment:
+  GITHUB_API_KEY:
+    secure: w1zaTUARBAuhkAKUke5sBvSkVtlDGL8YfQxROzv5oGIynVJImn+KWGFVDxyjQore
+
+  global:
+    HAXELIB_ROOT: /home/appveyor/haxelib
+    HAXE_INSTALLDIR: /home/appveyor/haxe
+
+install:
+  - cd /home/appveyor
+  - sudo add-apt-repository ppa:haxe/releases -y
+  - sudo apt update
+  - sudo apt install neko tar -y
+  - wget https://github.com/HaxeFoundation/haxe/releases/download/4.2.4/haxe-4.2.4-linux64.tar.gz
+  - mkdir $HAXE_INSTALLDIR
+  - tar -xf haxe-4.2.4-linux64.tar.gz -C $HAXE_INSTALLDIR
+  - export PATH=$PATH:$HAXE_INSTALLDIR/haxe_20211022152000_ab0c054
+  - mkdir $HAXELIB_ROOT && haxelib setup $HAXELIB_ROOT
+  - haxelib install hxcpp
+  - haxelib install format
+  - haxelib install mcli
+  - haxelib install Sure
+  - haxelib list
+
+build_script:
+  - cd $APPVEYOR_BUILD_FOLDER
+  - haxe GeometrizeHaxeExample.hxml
+
+  # Check the bin directory, run built executable as a sanity check
+  - cd bin
+  - ls -a
+  - cd ..
+  - cp bin/Main sample_images/Main
+  - cd sample_images
+  - chmod +x Main
+  - ./Main -i "grapefruit.png" -o "output.png" -t rectangle -s 100 -c 500 -m 100 -a 170
+  - ./Main -i "grapefruit.png" -o "output.svg" -t triangle -s 300 -c 100 -m 200 -a 255
+  - ./Main -i "grapefruit.png" -o "output.json" -t ellipse -s 200 -c 250 -m 50 -a 128
+  - ./Main -i "grapefruit.png" -o "output2.svg" -t quadratic_beziers -s 2500 -c 200 -m 50 -a 128
